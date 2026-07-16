@@ -17,24 +17,33 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) {
       toast.error("Please fill in all required fields.");
       return;
     }
     setSending(true);
-    // Compose mailto link
-    const subject = encodeURIComponent(`Inquiry from ${form.name}${form.service ? ` — ${form.service}` : ""}`);
-    const body = encodeURIComponent(
-      `Name: ${form.name}\nEmail: ${form.email}\nPhone: ${form.phone || "N/A"}\nService Interest: ${form.service || "N/A"}\n\nMessage:\n${form.message}`
-    );
-    window.open(`mailto:info@threedegreesnyc.com?subject=${subject}&body=${body}`, "_blank");
-    setTimeout(() => {
-      setSending(false);
-      toast.success("Your email client has been opened. Please send the email to complete your inquiry.");
+    const toastId = toast.loading("Sending your message...");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const result = (await response.json()) as { message?: string };
+
+      if (!response.ok) {
+        throw new Error(result.message || "We couldn't send your message.");
+      }
+
+      toast.success("Your message has been sent. We'll be in touch soon.", { id: toastId });
       setForm({ name: "", email: "", phone: "", service: "", message: "" });
-    }, 500);
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "We couldn't send your message. Please try again.", { id: toastId });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -244,7 +253,7 @@ export default function Contact() {
                     disabled={sending}
                     className="btn-gold flex items-center gap-2"
                   >
-                    {sending ? "Opening Email..." : "Send Message"}
+                    {sending ? "Sending..." : "Send Message"}
                     <Send size={14} />
                   </button>
                   <a
@@ -258,7 +267,7 @@ export default function Contact() {
                 </div>
 
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.75rem", color: "var(--charcoal-light)", opacity: 0.6 }}>
-                  * This form opens your email client to send a message to info@threedegreesnyc.com. For immediate bookings, use our online booking system.
+                  * We’ll send your message directly to the salon team. For immediate bookings, use our online booking system.
                 </p>
               </form>
             </FadeUp>
