@@ -13,10 +13,10 @@ export default function Footer() {
     >
       {/* Main Footer */}
       <div className="container py-16 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 lg:grid-cols-4">
           {/* Brand */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-6">
+          <div className="col-span-2 text-center lg:col-span-1 lg:text-left">
+            <div className="flex items-center justify-center gap-3 mb-6 lg:justify-start">
               <img
                 src="/manus-storage/logo-icon.png"
                 alt="Three Degrees Salon"
@@ -48,12 +48,12 @@ export default function Footer() {
               </div>
             </div>
             <p
-              className="text-sm leading-relaxed mb-6"
+              className="mx-auto text-sm leading-relaxed mb-6 lg:mx-0"
               style={{ color: "rgba(249,246,240,0.5)", maxWidth: "240px" }}
             >
               Japanese-concept luxury hair salon in East Village, NYC. Where your hair finds its style.
             </p>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center gap-4 lg:justify-start">
               <a
                 href={BUSINESS.instagram}
                 target="_blank"
@@ -85,7 +85,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <div>
+          <div className="text-center lg:text-left">
             <h4
               className="mb-6"
               style={{
@@ -125,7 +125,7 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="text-center lg:text-left">
             <h4
               className="mb-6"
               style={{
@@ -155,7 +155,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="col-span-2 text-center lg:col-span-1 lg:text-left">
             <h4
               className="mb-6"
               style={{
@@ -168,8 +168,8 @@ export default function Footer() {
             >
               VISIT US
             </h4>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-5 text-center lg:text-left">
+              <li className="flex items-start justify-center gap-3 lg:justify-start">
                 <MapPin size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--gold)" }} />
                 <div>
                   <div className="text-sm" style={{ color: "rgba(249,246,240,0.7)" }}>204 E 6th Street</div>
@@ -177,7 +177,7 @@ export default function Footer() {
                   <div className="text-xs mt-1" style={{ color: "rgba(249,246,240,0.4)" }}>East Village</div>
                 </div>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center justify-center gap-3 lg:justify-start">
                 <Phone size={14} className="flex-shrink-0" style={{ color: "var(--gold)" }} />
                 <a
                   href={`tel:${BUSINESS.phone}`}
@@ -187,7 +187,7 @@ export default function Footer() {
                   {BUSINESS.phone}
                 </a>
               </li>
-              <li className="flex items-center gap-3">
+              <li className="flex items-center justify-center gap-3 lg:justify-start">
                 <Mail size={14} className="flex-shrink-0" style={{ color: "var(--gold)" }} />
                 <a
                   href={`mailto:${BUSINESS.email}`}
@@ -197,7 +197,7 @@ export default function Footer() {
                   {BUSINESS.email}
                 </a>
               </li>
-              <li className="flex items-start gap-3">
+              <li className="flex items-start justify-center gap-3 lg:justify-start">
                 <Clock size={14} className="mt-0.5 flex-shrink-0" style={{ color: "var(--gold)" }} />
                 <div>
                   <div className="text-sm" style={{ color: "rgba(249,246,240,0.7)" }}>Mon – Sun</div>
